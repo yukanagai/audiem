@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Jersey';
-  src: 
+  src:
        url('fonts/Jersey-M54.rtf') format('rtf'), /* Modern Browsers */
        url('fonts/Jersey-M54.ttf')  format('truetype')
 }
@@ -88,6 +88,16 @@ form {
   display: inline-block;
   width: 70%;
   opacity: .8;
+}
+
+
+#photos img {
+  width: 220px;
+  height: 220px;
+}
+
+#playlist{
+  z-index: 1000;
 }
 
 #searchBox {
