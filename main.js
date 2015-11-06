@@ -1,7 +1,7 @@
 var MainApp = React.createClass({
 	render: function() {
 		return (
-			<div>
+			<div id="free-wall">
 				<Title />
 				<MainBody />
 			</div>
@@ -64,16 +64,44 @@ var MainBody = React.createClass({
 					var imageLink = instagramData[i].images.standard_resolution.url;
 					
 					console.log("imagelink", imageLink);
+					
 					var img = $('<img />', { 
   						id: hashtag,
   						src: imageLink,
   						alt: 'MyAlt',
   						width: 200
 					});
-					img.appendTo($('#photos'));
-
-					imageArr.push(imageLink);
+					img.appendTo($('#free-wall'));
 				};
+
+				$("#free-wall").each(function() {
+			        var wall = new freewall(this);
+			        wall.reset({
+			            selector: '.size320',
+			            cellW: function(container) {
+			                var cellWidth = 320;
+			                if (container.hasClass('size320')) {
+			                    cellWidth = container.width()/2;
+			                }
+			                return cellWidth;
+			            },
+			            cellH: function(container) {
+			                var cellHeight = 320;
+			                if (container.hasClass('size320')) {
+			                    cellHeight = container.height()/2;
+			                }
+			                return cellHeight;
+			            },
+			            fixSize: 0,
+			            gutterY: 20,
+			            gutterX: 20,
+			            onResize: function() {
+			                wall.fitWidth();
+			            }
+			        })
+			        wall.fitWidth();
+			    });
+	   			$(window).trigger("resize");
 						
 				this.setState({imageData: imageArr});
 			}.bind(this)
@@ -95,7 +123,6 @@ var InstagramBackground = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<section id="photos"></section>
 			</div>
 		);
 	}

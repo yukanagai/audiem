@@ -1,0 +1,9 @@
+#container {
+  width: 80%;
+  margin: auto;
+}
+
+#photos img {
+  width: 220px;
+  height: 220px;
+}
