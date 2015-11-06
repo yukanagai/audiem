@@ -25,4 +25,5 @@ $("#free-wall").each(function() {
     })
     wall.fitWidth();
 });
-	$(window).trigger("resize");
+
+$(window).trigger("resize");
