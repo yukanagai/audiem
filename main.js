@@ -12,10 +12,12 @@ var MainApp = React.createClass({
 var Title = React.createClass ({
 	render: function() {
 		return (
-			<div id="titleBox">
+			<div id="header">
 				<SpotifyPlayer />
-				<img src="/images/logo.png"/>
-				<h3 id="titleTag"s>Hear the moment</h3>
+				<div id="titleBox">
+					<h1 id="title">AUDIEM</h1>
+					<h3 id="titleTag">Hear the moment</h3>
+				</div>
 			</div>
 		);
 	}
@@ -26,7 +28,6 @@ var SearchBar = React.createClass({
 		event.preventDefault();
 		var hashtag = this.refs.hashtag.value;
 		$('#background').empty();
-		$('#searchBox').html("Hear more moments...");
 		this.props.onInstagramSearch(hashtag);
 	},
 	render: function() {
@@ -61,6 +62,7 @@ var MainBody = React.createClass({
 			},
 			dataType: 'jsonp',
 			success: function(result) {
+
 				console.log("RESULT", result);
 				console.log("RESULT URL", result.pagination.next_url);
 				var instagramData = result.data;
@@ -81,9 +83,9 @@ var MainBody = React.createClass({
 					// }
 
 					img.appendTo($('#background'));
+					$('#searchBox').val('');
+					$('#searchBox').attr("placeholder", 'Hear more moments...');
 				};
-
-		
 			}.bind(this)
 		});
 	},
@@ -106,7 +108,5 @@ var SpotifyPlayer = React.createClass({
 		);
 	}
 });
-
-
 
 ReactDOM.render(<MainApp />, document.getElementById('content') );

@@ -31,33 +31,37 @@ body {
   width: 100%;
   text-align: center;
   height: 100%;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
-#titleBox {
+#header {
   text-align: left;
   padding-top: 50px;
   margin-bottom: 100px;
   z-index: 2;
 }
 
+#titleBox {
+/*  background-color: rgba(255, 255, 255, 0.8);*/
+  display: inline-block;
+}
+
 #titleBox img {
-  width: 200px;
+  width: 250px;
 }
 
 #title {
-  color: #545553;
-  font-size: 3em;
+  font-size: 4em;
+  color: black;
   margin: 0px;
-  font-weight: 700;
+  font-weight: 1000;
 }
 
 #titleTag {
   font-size: 1.5em;
-  color: #919090;
+  color: black;
   margin-top: 0px;
   font-weight: 400;
-  margin-left: 15px;
 }
 
 #spotifyPlayer {
@@ -67,7 +71,6 @@ body {
   margin-right: 50px;
   z-index: 2;
 }
-
 
 #free-wall {
   margin: 0 auto;
@@ -83,7 +86,7 @@ form {
   margin: 0 auto;
   background: white;
   display: inline-block;
-  width: 50%;
+  width: 70%;
   opacity: .8;
 }
 
