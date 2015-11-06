@@ -14,14 +14,10 @@ var Title = React.createClass ({
 		return (
 
 			<div id="header">
-				<SpotifyPlayer />
 				<div id="titleBox">
 					<h1 id="title">AUDIEM</h1>
 					<h3 id="titleTag">Hear the moment</h3>
 				</div>
-			<div id="titleBox">
-				<img src="/images/logo.png"/>
-				<h3 id="titleTag"s>Hear the moment</h3>
 			</div>
 		);
 	}
@@ -81,7 +77,6 @@ var MainBody = React.createClass({
 				var track = data.tracks[0].id
 				var embed = '<iframe src="https://embed.spotify.com/?uri=spotify:track:'+track+'" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>'
 				$('#playlist').html(embed);
-
 				}
 			})
 		}
