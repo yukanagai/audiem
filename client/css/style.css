@@ -34,6 +34,7 @@ body {
   opacity: 0.5;
 }
 
+
 #header {
   text-align: left;
   padding-top: 50px;
@@ -114,4 +115,5 @@ form {
   font-size: 2.5em;
   background: transparent;
   margin: 0 auto;
+  font-family: jersey;
 }

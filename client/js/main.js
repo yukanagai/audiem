@@ -105,7 +105,7 @@ var MainBody = React.createClass({
 					var img = $('<img />', {
   						id: hashtag,
   						src: imageLink,
-  						height: 200
+  						height: 300
 					});
 
 					// callAPI();
