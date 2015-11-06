@@ -25,6 +25,7 @@ var SearchBar = React.createClass({
 		event.preventDefault();
 		var hashtag = this.refs.hashtag.value;
 		this.props.onInstagramSearch(hashtag);
+		this.props.onSpotifySearch(hashtag);
 	},
 	render: function() {
 		return (
@@ -40,13 +41,44 @@ var key = '91bd759fe1d84066ace0dae19428c7c6';
 
 var MainBody = React.createClass({
 	getInitialState: function() {
-		return {hashtag: null, imageData: null}
+		return {hashtag: null, imageData: null, song: null}
 	},
 	handleInstagramSearch: function(hashtag) {
-		this.InstagramSearch(hashtag);
+		this.InstagramSearch(hashtag); this.SpotifySearch(hashtag);
 	},
+	SpotifySearch: function(hashtag){
+	$.ajax({
+		method: 'get',
+		url: 'https://api.spotify.com/v1/search',
+		data: {
+			q: hashtag,
+			type: 'artist'
+		},
+		success: function(data) {
+			console.log("DATA!", data);
+			var artistId = data.artists.items[0].id;
+			fetchTopTracks(artistId);
+		}.bind(this)
+	})
+		function fetchTopTracks(id){
+			$.ajax({
+				method: 'get',
+				url: 'https://api.spotify.com/v1/artists/' + id + '/top-tracks?country=US',
+				data: {
+					country: 'US'
+				},
+				success: function(data) {
+				console.log('trackID', data.tracks[0].id);
+				var track = data.tracks[0].id
+				var embed = '<iframe src="https://embed.spotify.com/?uri=spotify:track:'+track+'" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>'
+				$('#playlist').html(embed);
+
+				}
+			})
+		}
+	},
+
 	InstagramSearch: function(hashtag) {
-		this.setState({hashtag: hashtag});
 		$.ajax({
 			url: "https://api.instagram.com/v1/tags/"+hashtag+"/media/recent?client_id=91bd759fe1d84066ace0dae19428c7c6",
 			method: 'GET',
@@ -55,15 +87,13 @@ var MainBody = React.createClass({
 			},
 			dataType: 'jsonp',
 			success: function(result) {
-				console.log(result);
+
 				var instagramData = result.data;
 
 				var imageArr = [];
 
 				for (var i=0; i<instagramData.length; i++) {
 					var imageLink = instagramData[i].images.standard_resolution.url;
-
-					console.log("imagelink", imageLink);
 
 					var img = $('<img />', {
   						id: hashtag,
@@ -102,58 +132,16 @@ var MainBody = React.createClass({
 			        wall.fitWidth();
 			    });
 	   			$(window).trigger("resize");
-
 				this.setState({imageData: imageArr});
+				this.setState({hashtag: hashtag});
+
 			}.bind(this)
 		});
 	},
 	render: function() {
 		return (
 			<div>
-				<SearchBar onInstagramSearch={this.handleInstagramSearch}  />
-				<SpotifyPlayer hashtag={this.state.hashtag} />
-				<InstagramBackground imageData={this.state.imageArr} />
-			</div>
-		);
-	}
-});
-
-var InstagramBackground = React.createClass({
-	render: function() {
-		return (
-			<div>
-			</div>
-		);
-	}
-});
-
-
-var SpotifyPlayer = React.createClass({
-	getInitialState: function(){
-		return{song:[]}
-	},
-
-	componentDidMount: function(){
-		this.loadSong(this.props.hashtag)
-	},
-
-	loadSong: function(hashtag){
-		$.ajax({
-			url: 'http://developer.echonest.com/api/v4/playlist/static?api_key='+echoK+'&artist='+hashtag+'&format=json&results=10&type=artist&bucket=id:spotify-WW&limit=true&song_selection=song_hotttnesss-top&bucket=tracks&bucket=audio_summary&bucket=artist_location',
-			method: 'GET',
-			dataType: jsonp,
-			success: function(result){
-				this.setState({song:result})
-			}
-
-			},
-		})
-	}
-	render: function() {
-
-		return (
-			<div>
-				SPOTIFY PLAYER: {this.props.hashtag}
+				<SearchBar onInstagramSearch={this.handleInstagramSearch} onSpotifySearch={this.SpotifySearch}/>
 			</div>
 		);
 	}

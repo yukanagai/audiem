@@ -7,3 +7,7 @@
   width: 220px;
   height: 220px;
 }
+
+#playlist{
+  z-index: 1000;
+}
