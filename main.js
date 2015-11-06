@@ -12,9 +12,9 @@ var MainApp = React.createClass({
 var Title = React.createClass ({
 	render: function() {
 		return (
-			<div id="title">
-				<h1>AUDIEM</h1>
-				<h3>Hear the moment</h3>
+			<div id="titleBox">
+				<h1 id="title">AUDIEM</h1>
+				<h3 id="titleTag"s>Hear the moment</h3>
 			</div>
 		);
 	}
@@ -29,7 +29,7 @@ var SearchBar = React.createClass({
 	render: function() {
 		return ( 
 			<form onSubmit={this.handleSubmit}>
-				<input type="text" name="artistname" ref="hashtag" placeholder="Enter, song, artists, genre..." />
+				<input type="text" id="searchBox" name="artistname" ref="hashtag" placeholder="Enter, song, artists, genre..." />
 			</form>
 		);
 	}
@@ -58,8 +58,6 @@ var MainBody = React.createClass({
 				console.log(result);
 				var instagramData = result.data;
 
-				var imageArr = [];
-
 				for (var i=0; i<instagramData.length; i++) {
 					var imageLink = instagramData[i].images.standard_resolution.url;
 					
@@ -69,7 +67,7 @@ var MainBody = React.createClass({
   						id: hashtag,
   						src: imageLink,
   						alt: 'MyAlt',
-  						width: 200
+  						height: 200
 					});
 					img.appendTo($('#free-wall'));
 				};
@@ -102,7 +100,8 @@ var MainBody = React.createClass({
 			        wall.fitWidth();
 			    });
 	   			$(window).trigger("resize");
-						
+
+
 				this.setState({imageData: imageArr});
 			}.bind(this)
 		});

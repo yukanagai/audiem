@@ -1,9 +1,56 @@
-#container {
-  width: 80%;
-  margin: auto;
+@font-face { 
+  font-family: Jersey; src: url('Jersey-M54.ttf'); 
+} 
+
+body {
+  color: #109890;
+  font-family: Jersey, sans-serif;
+}
+
+#titleBox {
+  text-align: left;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+#title {
+  color: #545553;
+  font-size: 3em;
+  margin-bottom: 0px;
+  font-weight: 700;
+}
+
+#titleTag {
+  font-size: 1.5em;
+  color: #919090;
+  margin-top: 3px;
+  font-weight: 400;
+}
+
+#content {
+  width: 90%;
+  margin: 0 auto;
+  height: 100%;
+}
+
+#free-wall {
+  margin: 0 auto;
+  text-align: center;
+  z-index: -1;
 }
 
 #photos img {
   width: 220px;
   height: 220px;
+}
+
+*:focus {
+  outline: 0;
+}
+
+#searchBox {
+  border: 0;
+  border-bottom: 3px solid black;
+  width: 60%;
+  font-size: 2em;
 }
