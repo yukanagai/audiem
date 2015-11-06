@@ -13,11 +13,11 @@ var Title = React.createClass ({
 	render: function() {
 		return (
 			<div id="header">
-				<div id="playlist"></div>
 				<div id="titleBox">
 					<h1 id="title">AUDIEM</h1>
 					<h3 id="titleTag">Hear the moment</h3>
 				</div>
+				<div id="playlist"></div>
 			</div>
 		);
 	}
