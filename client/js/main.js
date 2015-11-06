@@ -34,7 +34,7 @@ var SearchBar = React.createClass({
 	render: function() {
 		return (
 			<form onSubmit={this.handleSubmit}>
-				<input type="text" id="searchBox" name="artistname" ref="hashtag" placeholder="Enter a song or artist..." />
+				<input type="text" id="searchBox" name="artistname" ref="hashtag" placeholder="Enter a artist..." />
 			</form>
 		);
 	}
