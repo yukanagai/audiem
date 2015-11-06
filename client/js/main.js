@@ -12,8 +12,8 @@ var MainApp = React.createClass({
 var Title = React.createClass ({
 	render: function() {
 		return (
-
 			<div id="header">
+				<div id="playlist"></div>
 				<div id="titleBox">
 					<h1 id="title">AUDIEM</h1>
 					<h3 id="titleTag">Hear the moment</h3>
@@ -75,7 +75,9 @@ var MainBody = React.createClass({
 				success: function(data) {
 				console.log('trackID', data.tracks);
 				var track = data.tracks[0].id
-				var embed = '<iframe src="https://embed.spotify.com/?uri=spotify:track:'+track+'" width="300" height="120" frameborder="0" allowtransparency="true"></iframe>'
+
+				var embed = '<iframe src="https://embed.spotify.com/?uri=spotify:track:'+track+'" height="170" frameborder="0" allowtransparency="true"></iframe>'
+
 				$('#playlist').html(embed);
 				}
 			})
