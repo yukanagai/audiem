@@ -1,0 +1,3 @@
+var Instagram = React.createClass({
+  
+})
