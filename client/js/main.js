@@ -85,8 +85,10 @@ var MainBody = React.createClass({
 	},
 
 	InstagramSearch: function(hashtag) {
+    var hashJoin = hashtag.split(' ').join('')
+    console.log(hashJoin)
 		$.ajax({
-			url: "https://api.instagram.com/v1/tags/"+hashtag+"/media/recent?client_id=91bd759fe1d84066ace0dae19428c7c6",
+			url: "https://api.instagram.com/v1/tags/"+hashJoin+"/media/recent?client_id=91bd759fe1d84066ace0dae19428c7c6",
 			method: 'GET',
 			data: {
 				next_url: {}

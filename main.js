@@ -75,11 +75,9 @@ var MainBody = React.createClass({
 				success: function(data) {
 				console.log('trackID', data.tracks);
 				var track = data.tracks[0].id
-<<<<<<< HEAD
-				var embed = '<iframe src="https://embed.spotify.com/?uri=spotify:track:'+track+'" width="300" height="120" frameborder="0" allowtransparency="true"></iframe>'
-=======
+
 				var embed = '<iframe src="https://embed.spotify.com/?uri=spotify:track:'+track+'" height="170" frameborder="0" allowtransparency="true"></iframe>'
->>>>>>> f70a2afaa6d585153e72f9e91cf76be2fb6ea093
+
 				$('#playlist').html(embed);
 				}
 			})
