@@ -1,7 +1,7 @@
 var MainApp = React.createClass({
 	render: function() {
 		return (
-			<div id="free-wall">
+			<div id="content">
 				<Title />
 				<MainBody />
 			</div>
@@ -12,9 +12,9 @@ var MainApp = React.createClass({
 var Title = React.createClass ({
 	render: function() {
 		return (
-			<div id="title">
-				<h1>AUDIEM</h1>
-				<h3>Hear the moment</h3>
+			<div id="titleBox">
+				<img src="/images/logo.png"/>
+				<h3 id="titleTag"s>Hear the moment</h3>
 			</div>
 		);
 	}
@@ -24,13 +24,15 @@ var SearchBar = React.createClass({
 	handleSubmit: function(event) {
 		event.preventDefault();
 		var hashtag = this.refs.hashtag.value;
+		$('#background').empty();
+		$('#searchBox').html("Hear more moments...");
 		this.props.onInstagramSearch(hashtag);
 		this.props.onSpotifySearch(hashtag);
 	},
 	render: function() {
 		return (
 			<form onSubmit={this.handleSubmit}>
-				<input type="text" name="artistname" ref="hashtag" placeholder="Enter, song, artists, genre..." />
+				<input type="text" id="searchBox" name="artistname" ref="hashtag" placeholder="Enter a song or artist..." />
 			</form>
 		);
 	}
@@ -41,6 +43,7 @@ var key = '91bd759fe1d84066ace0dae19428c7c6';
 
 var MainBody = React.createClass({
 	getInitialState: function() {
+
 		return {hashtag: null, imageData: null, song: null}
 	},
 	handleInstagramSearch: function(hashtag) {
@@ -87,54 +90,27 @@ var MainBody = React.createClass({
 			},
 			dataType: 'jsonp',
 			success: function(result) {
-
+				console.log("RESULT", result);
+				console.log("RESULT URL", result.pagination.next_url);
 				var instagramData = result.data;
-
-				var imageArr = [];
-
 				for (var i=0; i<instagramData.length; i++) {
-					var imageLink = instagramData[i].images.standard_resolution.url;
-
+			var imageLink = instagramData[i].images.standard_resolution.url;
+					// Creating the img tag
 					var img = $('<img />', {
   						id: hashtag,
   						src: imageLink,
-  						alt: 'MyAlt',
-  						width: 200
+  						height: 200
 					});
-					img.appendTo($('#free-wall'));
+
+					// callAPI();
+
+					// function callAPI() {
+					// 	this.InstagramSearch(result.url_next, hashtag);
+					// }
+
+					img.appendTo($('#background'));
 				};
-
-				$("#free-wall").each(function() {
-			        var wall = new freewall(this);
-			        wall.reset({
-			            selector: '.size320',
-			            cellW: function(container) {
-			                var cellWidth = 320;
-			                if (container.hasClass('size320')) {
-			                    cellWidth = container.width()/2;
-			                }
-			                return cellWidth;
-			            },
-			            cellH: function(container) {
-			                var cellHeight = 320;
-			                if (container.hasClass('size320')) {
-			                    cellHeight = container.height()/2;
-			                }
-			                return cellHeight;
-			            },
-			            fixSize: 0,
-			            gutterY: 20,
-			            gutterX: 20,
-			            onResize: function() {
-			                wall.fitWidth();
-			            }
-			        })
-			        wall.fitWidth();
-			    });
-	   			$(window).trigger("resize");
-				this.setState({imageData: imageArr});
 				this.setState({hashtag: hashtag});
-
 			}.bind(this)
 		});
 	},
@@ -146,8 +122,6 @@ var MainBody = React.createClass({
 		);
 	}
 });
-
-
 
 
 ReactDOM.render(<MainApp />, document.getElementById('content') );

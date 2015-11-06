@@ -1,7 +1,92 @@
-#container {
-  width: 80%;
-  margin: auto;
+@font-face {
+  font-family: 'Jersey';
+  src:
+       url('fonts/Jersey-M54.rtf') format('rtf'), /* Modern Browsers */
+       url('fonts/Jersey-M54.ttf')  format('truetype')
 }
+
+body {
+  color: #109890;
+  font-family: Jersey;
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  position: relative;
+  z-index: 1;
+}
+
+#content {
+  width: 90%;
+  margin: 0 auto;
+  height: 100%;
+  text-align: center;
+}
+
+#background{
+  position: absolute;
+  z-index: -1;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  height: 100%;
+  opacity: 0.6;
+}
+
+#titleBox {
+  text-align: left;
+  padding-top: 50px;
+  margin-bottom: 100px;
+  z-index: 2;
+}
+
+#titleBox img {
+  width: 200px;
+}
+
+#title {
+  color: #545553;
+  font-size: 3em;
+  margin: 0px;
+  font-weight: 700;
+}
+
+#titleTag {
+  font-size: 1.5em;
+  color: #919090;
+  margin-top: 0px;
+  font-weight: 400;
+  margin-left: 15px;
+}
+
+#spotifyPlayer {
+  display: inline-block;
+  float: right;
+  margin-top: 50px;
+  margin-right: 50px;
+  z-index: 2;
+}
+
+
+#free-wall {
+  margin: 0 auto;
+  text-align: center;
+  z-index: -1;
+}
+
+*:focus {
+  outline: 0;
+}
+
+form {
+  margin: 0 auto;
+  background: white;
+  display: inline-block;
+  width: 50%;
+  opacity: .8;
+}
+
 
 #photos img {
   width: 220px;
@@ -10,4 +95,13 @@
 
 #playlist{
   z-index: 1000;
+}
+
+#searchBox {
+  border: 0;
+  border-bottom: 3px solid black;
+  width: 100%;
+  font-size: 2.5em;
+  background: transparent;
+  margin: 0 auto;
 }
