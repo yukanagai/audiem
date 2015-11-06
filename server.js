@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // Routes
 app.get('/', function(){
-  res.sendFile(__dirname + '/client/index.html');
+  res.sendFile(__dirname + 'index.html');
 });
 
 // Server

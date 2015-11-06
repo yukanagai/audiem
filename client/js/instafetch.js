@@ -44,7 +44,7 @@ Instafetch.prototype.fetch = function(params) {
   else {
     apiUrl += 'tags/' + params.tag + '/media/recent/?client_id=' + this.clientId + '&callback=callbackFunction&count=' + params.limit;
   }
-  
+
   if (params.hasOwnProperty('maxId')) {
     apiUrl += '&max_id=' + params.maxId;
   }
