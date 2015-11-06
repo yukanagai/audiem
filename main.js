@@ -51,52 +51,48 @@ var MainBody = React.createClass({
 	handleInstagramSearch: function(hashtag) {
 		this.InstagramSearch(hashtag); this.SpotifySearch(hashtag);
 	},
+
 	SpotifySearch: function(hashtag){
-	$.ajax({
-		method: 'get',
-		url: 'https://api.spotify.com/v1/search',
-		data: {
-			q: hashtag,
-			type: 'artist'
-		},
-		success: function(data) {
-			console.log("DATA!", data);
-			var artistId = data.artists.items[0].id;
-			fetchTopTracks(artistId);
-		}.bind(this)
-	})
-		function fetchTopTracks(id){
+		$.ajax({
+			method: 'get',
+			url: 'https://api.spotify.com/v1/search',
+			data: {
+				q: hashtag,
+				type: 'artist'
+			},
+			success: function(data) {
+				var artistId = data.artists.items[0].id;
+				console.log("Searching for artist ID", artistId);
+				fetchAlbum(artistId);
+			}.bind(this)
+		});
+
+		function fetchAlbum(artistId) {
 			$.ajax({
 				method: 'get',
-				url: 'https://api.spotify.com/v1/artists/' + id + '/top-tracks?country=US',
-				data: {
-					country: 'US'
-				},
+				url: 'https://api.spotify.com/v1/artists/'+artistId+'/albums',
 				success: function(data) {
-				console.log('trackID', data.tracks[0].id);
-				var track = data.tracks[0].id
-				var embed = '<iframe src="https://embed.spotify.com/?uri=spotify:track:'+track+'" height="170" frameborder="0" allowtransparency="true"></iframe>'
-				$('#playlist').html(embed);
+					var albumID = data.items[0].id;
+					var embed = '<iframe src="https://embed.spotify.com/?uri=spotify%3Aalbum%3A'+albumID+'&theme=white&view=coverart" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>';
+					
+					$('#playlist').html(embed);
 				}
-			})
-		}
+			});
+		};
 	},
-
 	InstagramSearch: function(hashtag) {
+		var hashJoin = hashtag.split(' ').join('');
 		$.ajax({
-			url: "https://api.instagram.com/v1/tags/"+hashtag+"/media/recent?client_id=91bd759fe1d84066ace0dae19428c7c6",
+			url: "https://api.instagram.com/v1/tags/"+hashJoin+"/media/recent?client_id=91bd759fe1d84066ace0dae19428c7c6",
 			method: 'GET',
 			data: {
 				next_url: {}
 			},
 			dataType: 'jsonp',
 			success: function(result) {
-
-				console.log("RESULT", result);
-				console.log("RESULT URL", result.pagination.next_url);
 				var instagramData = result.data;
 				for (var i=0; i<instagramData.length; i++) {
-			var imageLink = instagramData[i].images.standard_resolution.url;
+				var imageLink = instagramData[i].images.standard_resolution.url;
 					// Creating the img tag
 					var img = $('<img />', {
   						id: hashtag,
