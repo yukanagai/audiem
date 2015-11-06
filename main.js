@@ -27,7 +27,7 @@ var SearchBar = React.createClass({
 		this.props.onInstagramSearch(hashtag);
 	},
 	render: function() {
-		return ( 
+		return (
 			<form onSubmit={this.handleSubmit}>
 				<input type="text" name="artistname" ref="hashtag" placeholder="Enter, song, artists, genre..." />
 			</form>
@@ -62,10 +62,10 @@ var MainBody = React.createClass({
 
 				for (var i=0; i<instagramData.length; i++) {
 					var imageLink = instagramData[i].images.standard_resolution.url;
-					
+
 					console.log("imagelink", imageLink);
-					
-					var img = $('<img />', { 
+
+					var img = $('<img />', {
   						id: hashtag,
   						src: imageLink,
   						alt: 'MyAlt',
@@ -102,7 +102,7 @@ var MainBody = React.createClass({
 			        wall.fitWidth();
 			    });
 	   			$(window).trigger("resize");
-						
+
 				this.setState({imageData: imageArr});
 			}.bind(this)
 		});
@@ -119,7 +119,6 @@ var MainBody = React.createClass({
 });
 
 var InstagramBackground = React.createClass({
-
 	render: function() {
 		return (
 			<div>
@@ -130,7 +129,28 @@ var InstagramBackground = React.createClass({
 
 
 var SpotifyPlayer = React.createClass({
+	getInitialState: function(){
+		return{song:[]}
+	},
+
+	componentDidMount: function(){
+		this.loadSong(this.props.hashtag)
+	},
+
+	loadSong: function(hashtag){
+		$.ajax({
+			url: 'http://developer.echonest.com/api/v4/playlist/static?api_key='+echoK+'&artist='+hashtag+'&format=json&results=10&type=artist&bucket=id:spotify-WW&limit=true&song_selection=song_hotttnesss-top&bucket=tracks&bucket=audio_summary&bucket=artist_location',
+			method: 'GET',
+			dataType: jsonp,
+			success: function(result){
+				this.setState({song:result})
+			}
+
+			},
+		})
+	}
 	render: function() {
+
 		return (
 			<div>
 				SPOTIFY PLAYER: {this.props.hashtag}
