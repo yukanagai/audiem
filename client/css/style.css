@@ -13,7 +13,6 @@ body {
 }
 
 #container {
-  position: relative;
   z-index: 1;
 }
 
@@ -44,8 +43,7 @@ body {
 
 #titleBox {
 /*  background-color: rgba(255, 255, 255, 0.8);*/
-  display: inline-block;
-  width: 30%;
+  /*display: inline-block;*/
 }
 
 #titleBox img {
@@ -78,6 +76,7 @@ body {
   margin: 0 auto;
   text-align: center;
   z-index: -1;
+
 }
 
 *:focus {
@@ -116,4 +115,13 @@ form {
   background: transparent;
   margin: 0 auto;
   font-family: jersey;
+}
+
+@media screen and (max-width: 500px){
+  #titleBox{
+    display: inline-block;
+  }
+  #playlist iframe{
+    display: inline-block;
+  }
 }
