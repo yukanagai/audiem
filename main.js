@@ -24,7 +24,6 @@ var SearchBar = React.createClass({
 	handleSubmit: function(event) {
 		event.preventDefault();
 		var hashtag = this.refs.hashtag.value;
-		console.log(hashtag)
 		this.props.onInstagramSearch(hashtag);
 	},
 	render: function() {
@@ -36,24 +35,48 @@ var SearchBar = React.createClass({
 	}
 });
 
+
+var key = '91bd759fe1d84066ace0dae19428c7c6';
+
 var MainBody = React.createClass({
 	getInitialState: function() {
-		return {hashtag: null, imageURs: null}
+		return {hashtag: null, imageData: null}
 	},
 	handleInstagramSearch: function(hashtag) {
 		this.InstagramSearch(hashtag);
 	},
 	InstagramSearch: function(hashtag) {
 		this.setState({hashtag: hashtag});
-		console.log("THIS IS WORKING", hashtag);
 		$.ajax({
 			url: "https://api.instagram.com/v1/tags/"+hashtag+"/media/recent?client_id=91bd759fe1d84066ace0dae19428c7c6",
+			method: 'GET',
+			data: {
+				next_url: {}
+			},
 			dataType: 'jsonp',
 			success: function(result) {
+				console.log(result);
+				var instagramData = result.data;
 
-				
-				console.log(result.data);
-			}
+				var imageArr = [];
+
+				for (var i=0; i<instagramData.length; i++) {
+					var imageLink = instagramData[i].images.standard_resolution.url;
+					
+					console.log("imagelink", imageLink);
+					var img = $('<img />', { 
+  						id: hashtag,
+  						src: imageLink,
+  						alt: 'MyAlt',
+  						width: 200
+					});
+					img.appendTo($('#photos'));
+
+					imageArr.push(imageLink);
+				};
+						
+				this.setState({imageData: imageArr});
+			}.bind(this)
 		});
 	},
 	render: function() {
@@ -61,17 +84,18 @@ var MainBody = React.createClass({
 			<div>
 				<SearchBar onInstagramSearch={this.handleInstagramSearch}  />
 				<SpotifyPlayer hashtag={this.state.hashtag} />
-				<InstagramBackground hashtag={this.state.hashtag} />
+				<InstagramBackground imageData={this.state.imageArr} />
 			</div>
 		);
 	}
 });
 
 var InstagramBackground = React.createClass({
-	
+
 	render: function() {
 		return (
 			<div>
+				<section id="photos"></section>
 			</div>
 		);
 	}
@@ -87,7 +111,6 @@ var SpotifyPlayer = React.createClass({
 		);
 	}
 });
-
 
 
 
